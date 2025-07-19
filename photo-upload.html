@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Upload - Portfolio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .upload-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover {
+            border-color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .upload-area.dragover {
+            border-color: #3498db;
+            background: rgba(52, 152, 219, 0.2);
+        }
+        #fileInput {
+            display: none;
+        }
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        .preview {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .preview img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .instructions h3 {
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            text-align: left;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <h1>📸 Upload Your Photo</h1>
+        
+        <div class="upload-area" id="uploadArea">
+            <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; margin-bottom: 15px;"></i>
+            <p>Click here to select your photo or drag and drop</p>
+            <p style="font-size: 0.9em; opacity: 0.8;">Supports: JPG, PNG, GIF (Max 5MB)</p>
+        </div>
+        
+        <input type="file" id="fileInput" accept="image/*">
+        
+        <div class="preview" id="preview" style="display: none;">
+            <h3>Preview:</h3>
+            <img id="previewImage" src="" alt="Preview">
+            <br><br>
+            <button class="btn" onclick="downloadPhoto()">Download Photo</button>
+            <button class="btn" onclick="copyToPortfolio()">Use in Portfolio</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>How to add your photo to the portfolio:</h3>
+            <ol>
+                <li>Upload your photo using the button above</li>
+                <li>Download the photo to your computer</li>
+                <li>Save the photo in the same folder as your portfolio files</li>
+                <li>Rename the photo to "profile-photo.jpg" (or .png)</li>
+                <li>Open index.html in a text editor</li>
+                <li>Find the line with "profile-placeholder" and replace it with your photo</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const preview = document.getElementById('preview');
+        const previewImage = document.getElementById('previewImage');
+
+        // Click to upload
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                alert('Please select an image file!');
+                return;
+            }
+
+            // Check file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('File size should be less than 5MB!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImage.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function downloadPhoto() {
+            const link = document.createElement('a');
+            link.download = 'profile-photo.jpg';
+            link.href = previewImage.src;
+            link.click();
+        }
+
+        function copyToPortfolio() {
+            // Copy the image data to clipboard (if supported)
+            if (navigator.clipboard) {
+                fetch(previewImage.src)
+                    .then(res => res.blob())
+                    .then(blob => {
+                        const item = new ClipboardItem({ "image/png": blob });
+                        navigator.clipboard.write([item]);
+                        alert('Photo copied to clipboard! You can now paste it in your portfolio folder.');
+                    });
+            } else {
+                alert('Download the photo and save it as "profile-photo.jpg" in your portfolio folder.');
+            }
+        }
+    </script>
+</body>
+</html> 
