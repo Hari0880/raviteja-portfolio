@@ -271,84 +271,7 @@ scrollToTopBtn.addEventListener('mouseleave', () => {
 
 
 // Dynamic Photo Upload Functionality
-const profilePhoto = document.getElementById('profilePhoto');
-const profilePlaceholder = document.getElementById('profilePlaceholder');
-const photoUpload = document.getElementById('photoUpload');
-
-// Check if photo exists on page load
-window.addEventListener('load', () => {
-    if (profilePhoto.complete && profilePhoto.naturalHeight !== 0) {
-        profilePhoto.style.display = 'block';
-        profilePlaceholder.style.display = 'none';
-    } else {
-        profilePhoto.style.display = 'none';
-        profilePlaceholder.style.display = 'flex';
-    }
-});
-
-// Click to upload photo
-profilePlaceholder.addEventListener('click', () => {
-    photoUpload.click();
-});
-
-// Handle photo upload
-photoUpload.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        // Validate file type
-        if (!file.type.startsWith('image/')) {
-            alert('Please select an image file!');
-            return;
-        }
-
-        // Validate file size (5MB limit)
-        if (file.size > 5 * 1024 * 1024) {
-            alert('File size should be less than 5MB!');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            // Display the uploaded photo
-            profilePhoto.src = e.target.result;
-            profilePhoto.style.display = 'block';
-            profilePlaceholder.style.display = 'none';
-            
-            // Save to localStorage for persistence
-            localStorage.setItem('profilePhoto', e.target.result);
-            
-            // Show success message
-            showNotification('Photo uploaded successfully!', 'success');
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-// Load saved data on page load
-window.addEventListener('load', () => {
-    // Load saved profile photo
-    const savedPhoto = localStorage.getItem('profilePhoto');
-    if (savedPhoto) {
-        profilePhoto.src = savedPhoto;
-        profilePhoto.style.display = 'block';
-        profilePlaceholder.style.display = 'none';
-    }
-});
-
-// Add photo change functionality when photo is already displayed
-profilePhoto.addEventListener('click', () => {
-    photoUpload.click();
-});
-
-// Add hover effect for photo change
-profilePhoto.addEventListener('mouseenter', () => {
-    profilePhoto.style.cursor = 'pointer';
-    profilePhoto.style.filter = 'brightness(0.8)';
-});
-
-profilePhoto.addEventListener('mouseleave', () => {
-    profilePhoto.style.filter = 'brightness(1)';
-});
+// Remove all code related to photo upload and localStorage for the profile photo
 
 // Notification system
 function showNotification(message, type = 'info') {
@@ -439,14 +362,14 @@ document.head.appendChild(style);
 function removePhoto() {
     if (confirm('Are you sure you want to remove your profile photo?')) {
         // Clear localStorage
-        localStorage.removeItem('profilePhoto');
+        // localStorage.removeItem('profilePhoto'); // This line is removed
         
         // Reset photo display
-        profilePhoto.style.display = 'none';
-        profilePlaceholder.style.display = 'flex';
+        // profilePhoto.style.display = 'none'; // This line is removed
+        // profilePlaceholder.style.display = 'flex'; // This line is removed
         
         // Clear file input
-        photoUpload.value = '';
+        // photoUpload.value = ''; // This line is removed
         
         // Show notification
         showNotification('Photo removed successfully!', 'success');
