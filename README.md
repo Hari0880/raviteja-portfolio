@@ -7,8 +7,9 @@ A modern, responsive portfolio website showcasing cinematography skills and prof
 - **Modern Design**: Clean, professional layout with smooth animations
 - **Responsive**: Works perfectly on desktop, tablet, and mobile devices
 - **Interactive**: Smooth scrolling, hover effects, and dynamic navigation
-- **Direct Photo Upload**: Click to upload profile photo directly from the interface
+- **Static Profile Photo**: Your photo is hardcoded and always visible
 - **Contact Form**: Functional contact form with validation
+- **Social Media Links**: Instagram, YouTube, Facebook, and Email
 - **Animations**: Scroll-triggered animations and typing effects
 - **Mobile-Friendly**: Hamburger menu for mobile navigation
 
@@ -19,7 +20,7 @@ A modern, responsive portfolio website showcasing cinematography skills and prof
 3. **Skills**: Your strengths and abilities
 4. **Education**: Academic background and qualifications
 5. **Hobbies**: Personal interests and activities
-6. **Contact**: Contact information and contact form
+6. **Contact**: Contact information, social media, and contact form
 
 ## Files Structure
 
@@ -28,36 +29,15 @@ portfolio/
 ├── index.html          # Main HTML file
 ├── styles.css          # CSS styles and animations
 ├── script.js           # JavaScript functionality
-├── photo-upload.html   # Photo upload tool (optional)
-├── PHOTO-GUIDE.md      # Photo upload instructions
 └── README.md           # This file
 ```
 
 ## How to Use
 
 1. **Open the website**: Double-click on `index.html` to open it in your web browser
-2. **Upload profile photo**: Click the camera icon or existing photo to upload a new one
-3. **Customize content**: Edit the HTML file to update your information
-4. **Modify styling**: Edit `styles.css` to change colors, fonts, and layout
-5. **Add functionality**: Edit `script.js` to add new features
-
-## Photo Upload Feature
-
-### Direct Upload (Recommended)
-- **Click the camera icon** in the hero section
-- **Select your photo** from your computer
-- **Photo appears instantly** and saves automatically
-- **Click existing photo** to change it anytime
-
-### Manual Upload (Alternative)
-- Use the `photo-upload.html` tool for advanced photo management
-- Follow instructions in `PHOTO-GUIDE.md`
-
-### Photo Requirements
-- **Formats**: JPG, PNG, GIF
-- **Size**: Maximum 5MB
-- **Quality**: High resolution recommended
-- **Dimensions**: Any size (automatically cropped to circle)
+2. **Customize content**: Edit the HTML file to update your information, education, and social links
+3. **Modify styling**: Edit `styles.css` to change colors, fonts, and layout
+4. **Add functionality**: Edit `script.js` to add new features
 
 ## Customization Guide
 
@@ -67,16 +47,15 @@ In `styles.css`, you can modify these color variables:
 - Secondary color: `#2c3e50` (dark blue)
 - Gradient colors: `#667eea` and `#764ba2`
 
-### Adding Your Photo
-The easiest way is to use the built-in upload feature:
-1. Click the camera icon in the hero section
-2. Select your photo file
-3. Photo appears instantly and saves automatically
+### Updating Your Photo
+1. Replace the file `raviteja.jpg` in your project folder with your new photo (use the same filename)
+2. The photo will appear automatically on your site
 
-### Updating Contact Information
-Edit the contact details in `index.html`:
+### Updating Contact Information & Social Links
+Edit the contact details and social media links in `index.html`:
 - Phone number
 - Email address
+- Instagram, YouTube, Facebook URLs
 - Location
 
 ## Browser Compatibility
@@ -90,7 +69,6 @@ Edit the contact details in `index.html`:
 
 - Optimized images and animations
 - Smooth scrolling
-- Local storage for photo persistence
 - Mobile-optimized navigation
 
 ## Contact Form
@@ -105,7 +83,6 @@ The contact form includes:
 
 Consider adding:
 - Blog section
-- Social media links
 - Downloadable resume
 - Testimonials section
 - Skills progress bars
@@ -117,7 +94,6 @@ If you need help customizing your portfolio:
 1. Edit the HTML file to change content
 2. Modify CSS for styling changes
 3. Update JavaScript for new functionality
-4. Check `PHOTO-GUIDE.md` for photo upload help
 
 ## License
 
